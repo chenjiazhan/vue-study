@@ -7,6 +7,25 @@ class Store {
     this._actions = options.actions;
     this._getters = options.getters
 
+    // 第二种定义getter方法
+    // const computed = {}
+    // this.getters = {}
+    // const store = this
+
+    // // doubleCounter(state) {}
+    // Object.keys(this._getters).forEach(key => {
+    //   // 获取用户定义的getter
+    //   const fn = store._getters[key]
+    //   // 转换为computed可以使用的无参数形式
+    //   computed[key] = function() {
+    //     return fn(store.state)
+    //   }
+    //   // 为getters定义只读属性
+    //   Object.defineProperty(store.getters, key, {
+    //     get: () => store._vm[key]
+    //   })
+    // })
+
     // 2. 将state变成响应式数据
     this._vm = new Vue({
       data: {
@@ -28,6 +47,7 @@ class Store {
 
     this.commit = this.commit.bind(this)
     this.dispatch = this.dispatch.bind(this)
+    // 如果使用第二种方法，就不需要在这里重新赋值
     this.getters = this._vm.getters
   }
 
